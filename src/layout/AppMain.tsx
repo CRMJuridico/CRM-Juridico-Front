@@ -38,7 +38,7 @@ const AppMain: React.FC<AppMainProps> = ({ children }) => {
           component="main"
           sx={{
             flexGrow: 1,
-            p: 3,
+            p: { xs: 1.5, sm: 2 },
             mt: 8,
             width: {
               xs: '100%',
@@ -52,11 +52,23 @@ const AppMain: React.FC<AppMainProps> = ({ children }) => {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.enteringScreen,
             }),
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: `calc(100vh - ${theme.spacing(10)})`,
+            '& > *': {
+              width: '100%',
+              minHeight: '100%',
+              '& .MuiCard-root': {
+                height: '100%',
+              },
+              '& .MuiPaper-root': {
+                height: '100%',
+              }
+            },
           }}
         >
           {children}
         </Box>
-
         <Footer />
       </Box>
     </PageTitleProvider>

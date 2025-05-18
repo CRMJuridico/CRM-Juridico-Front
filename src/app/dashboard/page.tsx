@@ -1,14 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Grid, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import { People, Assignment, CheckCircle, Schedule } from '@mui/icons-material';
 import {
-  StatCard,
   ProcessStatus,
   RecentActivities,
   UpcomingTasks
 } from '@/components/dashboard';
+import { BoxAppSimples } from '@/components/box';
+import { GridApp } from '@/components/grid';
 import { usePageTitle } from '@/contexts/PageTitleContext';
 
 // Mock data for demonstration
@@ -69,37 +70,62 @@ export default function DashboardPage() {
   }, [setTitle]);
 
   return (
-    <Container maxWidth="xl" sx={{ py: 3 }}>
-      <Grid container spacing={3}>
-        {/* Stat Cards */}
-        <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={People} title="Clientes Ativos" value="156" color="#2196f3" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={Assignment} title="Processos Totais" value="243" color="#4caf50" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={CheckCircle} title="Concluídos" value="89" color="#ff9800" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={Schedule} title="Pendentes" value="32" color="#f44336" />
-        </Grid>
+    <GridApp
+      container
+      containerProps={{
+        maxWidth: "xl",
+        sx: { py: 3 }
+      }}
+      spacing={3}
+    >
+      {/* Stat Cards */}
+      <GridApp item xs={12} sm={6} md={3}>
+        <BoxAppSimples
+          icon={<People sx={{ fontSize: 24 }} />}
+          title="Clientes Ativos"
+          value="156"
+          color="#2196f3"
+        />
+      </GridApp>
+      <GridApp item xs={12} sm={6} md={3}>
+        <BoxAppSimples
+          icon={<Assignment sx={{ fontSize: 24 }} />}
+          title="Processos Totais"
+          value="243"
+          color="#4caf50"
+        />
+      </GridApp>
+      <GridApp item xs={12} sm={6} md={3}>
+        <BoxAppSimples
+          icon={<CheckCircle sx={{ fontSize: 24 }} />}
+          title="Concluídos"
+          value="89"
+          color="#ff9800"
+        />
+      </GridApp>
+      <GridApp item xs={12} sm={6} md={3}>
+        <BoxAppSimples
+          icon={<Schedule sx={{ fontSize: 24 }} />}
+          title="Pendentes"
+          value="32"
+          color="#f44336"
+        />
+      </GridApp>
 
-        {/* Process Status */}
-        <Grid item xs={12} md={6}>
-          <ProcessStatus data={processStatusData} totalProcesses={100} />
-        </Grid>
+      {/* Process Status */}
+      <GridApp item xs={12} md={6}>
+        <ProcessStatus data={processStatusData} totalProcesses={100} />
+      </GridApp>
 
-        {/* Recent Activities */}
-        <Grid item xs={12} md={6}>
-          <RecentActivities activities={recentActivities} />
-        </Grid>
+      {/* Recent Activities */}
+      <GridApp item xs={12} md={6}>
+        <RecentActivities activities={recentActivities} />
+      </GridApp>
 
-        {/* Upcoming Tasks */}
-        <Grid item xs={12}>
-          <UpcomingTasks tasks={upcomingTasks} />
-        </Grid>
-      </Grid>
-    </Container>
+      {/* Upcoming Tasks */}
+      <GridApp item xs={12}>
+        <UpcomingTasks tasks={upcomingTasks} />
+      </GridApp>
+    </GridApp>
   );
 }

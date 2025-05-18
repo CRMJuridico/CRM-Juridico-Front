@@ -1,6 +1,6 @@
 'use client'
 
-import { Layout } from '@/components/layout'
+import { Layout } from '@/layout'
 import { ReactNode } from 'react'
 
 interface AgendaLayoutProps {

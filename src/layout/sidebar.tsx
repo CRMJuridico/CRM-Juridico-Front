@@ -11,6 +11,7 @@ import {
   useTheme as useMuiTheme,
   IconButton,
   Tooltip,
+  Typography,
 } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
@@ -69,24 +70,35 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           mt: 8,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          height: '100%',
         }}
       >
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'flex-end',
-            width: '100%',
-            px: 1,
-            mb: 1,
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            px: 2,
+            py: 1,
           }}
         >
+          {open && (
+            <Typography
+              variant="subtitle1"
+              sx={{
+                fontWeight: 600,
+                color: muiTheme.palette.primary.main,
+              }}
+            >
+              Menu
+            </Typography>
+          )}
           <IconButton onClick={onClose} size="small">
             {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </Box>
 
-        <List sx={{ width: '100%' }}>
+        <List sx={{ width: '100%', px: 1, flex: 1 }}>
           {menuItems.map(item => {
             const isActive = pathname === item.path;
             return (
@@ -96,9 +108,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                   onClick={() => router.push(item.path)}
                   sx={{
                     mb: 0.5,
-                    mx: 1,
                     borderRadius: 1,
-                    minHeight: 48,
+                    minHeight: 44,
                     justifyContent: open ? 'initial' : 'center',
                     backgroundColor: isActive
                       ? isDarkMode
@@ -128,10 +139,9 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                     <ListItemText
                       primary={item.text}
                       sx={{
-                        ml: -1,
                         opacity: open ? 1 : 0,
                         '& .MuiTypography-root': {
-                          fontSize: '0.9rem',
+                          fontSize: '0.875rem',
                           color: isActive
                             ? muiTheme.palette.primary.main
                             : muiTheme.palette.text.primary,

@@ -19,6 +19,15 @@ export const useTheme = () => useContext(ThemeContext);
 
 const getTheme = (isDarkMode: boolean) =>
   createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 600,
+        lg: 1200,
+        xl: 1536,
+      },
+    },
     palette: {
       mode: isDarkMode ? 'dark' : 'light',
       primary: {
@@ -94,7 +103,7 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
   const theme = useMemo(() => getTheme(isDarkMode), [isDarkMode]);
 
   const toggleTheme = () => {
-    setIsDarkMode(prev => {
+    setIsDarkMode((prev: boolean) => {
       const newTheme = !prev;
       localStorage.setItem('theme', newTheme ? 'dark' : 'light');
       return newTheme;

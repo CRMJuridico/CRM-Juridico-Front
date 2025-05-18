@@ -13,7 +13,8 @@ import { useRouter } from 'next/navigation';
 import { Person, Upload } from '@mui/icons-material';
 import { usePageTitle } from '@/contexts/PageTitleContext';
 import ClienteForm from '@/views/clientes/forms/ClienteForm';
-import { UploadArquivos } from '@/components/clientes/novo';
+import { UploadArquivos } from '@/views/clientes/forms/UploadArquivos';
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
