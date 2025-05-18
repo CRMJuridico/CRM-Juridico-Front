@@ -43,7 +43,15 @@ export default function Calendar({ compromissos, onCompromissoClick, onDateClick
   }
 
   return (
-    <Paper elevation={2} sx={{ p: 2 }}>
+    <Paper elevation={2} sx={{ 
+      pr: 2,
+      pt: 2,
+      pb: 2,
+      pl: 0,
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"

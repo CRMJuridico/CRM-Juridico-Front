@@ -34,11 +34,13 @@ const getTheme = (isDarkMode: boolean) =>
         main: '#67171F',
         light: '#8B2229',
         dark: '#4A1116',
+        contrastText: isDarkMode ? '#ffffff' : '#2d2d2d',
       },
       secondary: {
         main: '#C5A572',
         light: '#D4BC94',
         dark: '#B69260',
+        contrastText: isDarkMode ? '#ffffff' : '#2d2d2d',
       },
       background: {
         default: isDarkMode ? '#1a1a1a' : '#f5f5f5',
@@ -46,7 +48,12 @@ const getTheme = (isDarkMode: boolean) =>
       },
       text: {
         primary: isDarkMode ? '#ffffff' : '#2d2d2d',
-        secondary: isDarkMode ? '#C5A572' : '#67171F',
+        secondary: isDarkMode ? '#ffffff' : '#2d2d2d',
+      },
+    },
+    typography: {
+      allVariants: {
+        color: isDarkMode ? '#ffffff' : '#2d2d2d',
       },
     },
     components: {
@@ -82,6 +89,64 @@ const getTheme = (isDarkMode: boolean) =>
         styleOverrides: {
           paper: {
             backgroundColor: isDarkMode ? '#2d2d2d' : '#ffffff',
+            color: isDarkMode ? '#ffffff' : '#2d2d2d',
+          },
+        },
+      },
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            color: isDarkMode ? '#ffffff' : '#2d2d2d',
+          },
+        },
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            backgroundColor: '#1976d2',
+            color: '#ffffff',
+            '&:hover': {
+              backgroundColor: '#1565c0',
+            },
+            '&.MuiButton-text': {
+              backgroundColor: 'transparent',
+              color: isDarkMode ? '#ffffff' : '#2d2d2d',
+              '&:hover': {
+                backgroundColor: 'rgba(25, 118, 210, 0.04)',
+              },
+            },
+            '&.MuiButton-outlined': {
+              backgroundColor: 'transparent',
+              borderColor: '#1976d2',
+              color: '#1976d2',
+              '&:hover': {
+                backgroundColor: 'rgba(25, 118, 210, 0.04)',
+                borderColor: '#1565c0',
+              },
+            },
+            '&.Mui-disabled': {
+              backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)',
+              color: isDarkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.26)',
+            },
+          },
+        },
+        defaultProps: {
+          variant: 'contained',
+        },
+      },
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            color: isDarkMode ? '#ffffff' : '#2d2d2d',
+          },
+        },
+      },
+      MuiListItemText: {
+        styleOverrides: {
+          primary: {
+            color: isDarkMode ? '#ffffff' : '#2d2d2d',
+          },
+          secondary: {
             color: isDarkMode ? '#ffffff' : '#2d2d2d',
           },
         },

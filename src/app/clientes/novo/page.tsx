@@ -60,11 +60,6 @@ export default function NovoClientePage() {
 
   return (
     <Box>
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h4" component="h1">
-          Novo Cliente
-        </Typography>
-      </Box>
 
       <Paper>
         <Tabs

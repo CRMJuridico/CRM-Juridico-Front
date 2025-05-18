@@ -41,9 +41,6 @@ export default function ClientesPage() {
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" component="h1">
-          Clientes
-        </Typography>
         <Button
           variant="contained"
           color="primary"

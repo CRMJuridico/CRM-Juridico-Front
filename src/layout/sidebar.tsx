@@ -1,42 +1,64 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  useTheme as useMuiTheme,
   IconButton,
-  Tooltip,
   Typography,
+  useTheme as useMuiTheme,
 } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
 import FolderIcon from '@mui/icons-material/Folder';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import GroupIcon from '@mui/icons-material/Group';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useTheme } from '@/providers/theme-provider';
 import { usePathname, useRouter } from 'next/navigation';
+import { ItemSidebarAberto } from '@/components/Menu/ItemSidebarAberto';
+import { ItemSidebarFechado } from '@/components/Menu/ItemSidebarFechado';
+import { IMenuBludata } from '@/interfaces/Menu';
+import { DRAWER_WIDTH, CLOSED_DRAWER_WIDTH, HEADER_HEIGHT, TRANSITION_DURATION } from '@/config/layout.constants';
 
 interface SidebarProps {
   open: boolean;
   onClose: () => void;
 }
 
-const DRAWER_WIDTH = 200;
-const CLOSED_DRAWER_WIDTH = 65;
-
-const menuItems = [
-  { text: 'Agenda', icon: <CalendarTodayIcon />, path: '/agenda' },
-  { text: 'Clientes', icon: <PersonIcon />, path: '/clientes' },
-  { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-  { text: 'Processos', icon: <FolderIcon />, path: '/processos' },
-  { text: 'Usuários', icon: <GroupIcon />, path: '/usuarios' },
+const menuItems: IMenuBludata[] = [
+  { 
+    id: 1,
+    nome: 'Agenda',
+    icone: <CalendarTodayIcon />,
+    caminho: '/agenda',
+    readonly: false,
+    filhos: []
+  },
+  { 
+    id: 2,
+    nome: 'Clientes',
+    icone: <PersonIcon />,
+    caminho: '/clientes',
+    readonly: false,
+    filhos: []
+  },
+  { 
+    id: 3,
+    nome: 'Dashboard',
+    icone: <DashboardIcon />,
+    caminho: '/dashboard',
+    readonly: false,
+    filhos: []
+  },
+  { 
+    id: 4,
+    nome: 'Processos',
+    icone: <FolderIcon />,
+    caminho: '/processos',
+    readonly: false,
+    filhos: []
+  },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
@@ -44,6 +66,19 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   const { isDarkMode } = useTheme();
   const pathname = usePathname();
   const router = useRouter();
+  const [menuFechadoAberto, setMenuFechadoAberto] = useState<number>(0);
+  const [menuAberto, setMenuAberto] = useState<number>(0);
+  const [isDrag, setIsDrag] = useState(false);
+
+  const handleColorItens = (menu: IMenuBludata) => {
+    if (menu.readonly) return muiTheme.palette.error.main;
+    if (pathname === menu.caminho) return muiTheme.palette.primary.main;
+    return muiTheme.palette.text.primary;
+  };
+
+  const isOpen = (id?: number) => {
+    return id ? menuAberto === id : false;
+  };
 
   return (
     <Drawer
@@ -60,7 +95,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           overflowX: 'hidden',
           transition: muiTheme.transitions.create(['width'], {
             easing: muiTheme.transitions.easing.sharp,
-            duration: muiTheme.transitions.duration.enteringScreen,
+            duration: open ? TRANSITION_DURATION.enteringScreen : TRANSITION_DURATION.leavingScreen,
           }),
         },
       }}
@@ -69,7 +104,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
       <Box
         sx={{
           overflow: 'hidden',
-          mt: 8,
+          mt: HEADER_HEIGHT / 8,
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
@@ -92,7 +127,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                 color: muiTheme.palette.primary.main,
               }}
             >
-              Menu
+
             </Typography>
           )}
           <IconButton onClick={onClose} size="small">
@@ -100,63 +135,54 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           </IconButton>
         </Box>
 
-        <List sx={{ width: '100%', px: 1, flex: 1 }}>
-          {menuItems.map(item => {
-            const isActive = pathname === item.path;
-            return (
-              <Tooltip title={!open ? item.text : ''} placement="right" key={item.text}>
-                <ListItem
-                  button
-                  onClick={() => router.push(item.path)}
-                  sx={{
-                    mb: 0.5,
-                    borderRadius: 1,
-                    minHeight: 44,
-                    justifyContent: open ? 'initial' : 'center',
-                    backgroundColor: isActive
-                      ? isDarkMode
-                        ? 'rgba(255, 255, 255, 0.08)'
-                        : 'rgba(0, 0, 0, 0.04)'
-                      : 'transparent',
-                    '&:hover': {
-                      backgroundColor: isDarkMode
-                        ? 'rgba(255, 255, 255, 0.12)'
-                        : 'rgba(0, 0, 0, 0.08)',
-                    },
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      color: isActive
-                        ? muiTheme.palette.primary.main
-                        : muiTheme.palette.text.secondary,
-                      minWidth: 36,
-                      mr: open ? 2 : 'auto',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {item.icon}
-                  </ListItemIcon>
-                  {open && (
-                    <ListItemText
-                      primary={item.text}
-                      sx={{
-                        opacity: open ? 1 : 0,
-                        '& .MuiTypography-root': {
-                          fontSize: '0.875rem',
-                          color: isActive
-                            ? muiTheme.palette.primary.main
-                            : muiTheme.palette.text.primary,
-                          fontWeight: isActive ? 600 : 400,
-                        },
-                      }}
-                    />
-                  )}
-                </ListItem>
-              </Tooltip>
-            );
-          })}
-        </List>
+        <Box component="ul" sx={{ width: '100%', px: 1, flex: 1, listStyle: 'none', m: 0, p: 0 }}>
+          {menuItems.map(menu => (
+            open ? (
+              <ItemSidebarAberto
+                key={menu.id}
+                menu={menu}
+                menuAberto={menuAberto === menu.id}
+                open={(id: number) => setMenuAberto(id)}
+                navigate={router.push}
+                openSidebar={open}
+                setIsDrag={setIsDrag}
+                corhover={isDarkMode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'}
+                itemMenuAtivoBackground={isDarkMode ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'}
+                borderRaidus="4px"
+                border="2px solid transparent"
+                handleColorItens={handleColorItens}
+                corIcone={muiTheme.palette.text.secondary}
+                corPrimaria={muiTheme.palette.primary.main}
+                isOpen={isOpen}
+                marginLeft={0}
+                shadow={`0px 2px 4px -1px ${muiTheme.palette.mode === 'dark' ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.1)'}`}
+                backGroundColorMenuFechado={muiTheme.palette.background.paper}
+                corBorda={muiTheme.palette.divider}
+              />
+            ) : (
+              <ItemSidebarFechado
+                key={menu.id}
+                menu={menu}
+                menuFechadoAberto={menuFechadoAberto}
+                abrirMenuFechado={(id: number) => setMenuFechadoAberto(id)}
+                navigate={router.push}
+                corhover={isDarkMode ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'}
+                itemMenuAtivoBackground={isDarkMode ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'}
+                borderRaidus="4px"
+                handleColorItens={handleColorItens}
+                corIcone={muiTheme.palette.text.secondary}
+                corPrimaria={muiTheme.palette.primary.main}
+                backGroundColorMenuFechado={muiTheme.palette.background.paper}
+                shadow={`0px 2px 4px -1px ${muiTheme.palette.mode === 'dark' ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.1)'}`}
+                isOpen={isOpen}
+                open={(id: number) => setMenuAberto(id)}
+                marginLeft={0}
+                openSidebar={open}
+                corBorda={muiTheme.palette.divider}
+              />
+            )
+          ))}
+        </Box>
       </Box>
     </Drawer>
   );

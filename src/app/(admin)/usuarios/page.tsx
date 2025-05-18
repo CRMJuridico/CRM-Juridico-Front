@@ -60,8 +60,8 @@ export default function UsuariosPage() {
   };
 
   return (
-    <Box>
-      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Box sx={{ margin: '-16px' }}>
+      <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
         <Button
           variant="contained"
           color="primary"
@@ -72,47 +72,45 @@ export default function UsuariosPage() {
         </Button>
       </Box>
 
-      <Paper>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Nome</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Tipo</TableCell>
-                <TableCell>Telefone</TableCell>
-                <TableCell align="center">Ações</TableCell>
+      <TableContainer component={Paper} sx={{ borderRadius: 0, boxShadow: 'none' }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Nome</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Tipo</TableCell>
+              <TableCell>Telefone</TableCell>
+              <TableCell align="center">Ações</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {mockUsers.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell>{user.nome}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.tipo}</TableCell>
+                <TableCell>{user.telefone}</TableCell>
+                <TableCell align="center">
+                  <IconButton
+                    color="primary"
+                    size="small"
+                    onClick={() => handleEdit(user.id)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    color="error"
+                    size="small"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {mockUsers.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.nome}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.tipo}</TableCell>
-                  <TableCell>{user.telefone}</TableCell>
-                  <TableCell align="center">
-                    <IconButton
-                      color="primary"
-                      size="small"
-                      onClick={() => handleEdit(user.id)}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      color="error"
-                      size="small"
-                      onClick={() => handleDelete(user.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 } 

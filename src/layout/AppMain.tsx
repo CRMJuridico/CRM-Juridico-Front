@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { Box, useTheme } from '@mui/material';
 import Header from './header';
-import Footer from './footer';
 import Sidebar from './sidebar';
+import Footer from './footer';
 import { PageTitleProvider } from '@/contexts/PageTitleContext';
 
 interface AppMainProps {
@@ -40,6 +40,7 @@ const AppMain: React.FC<AppMainProps> = ({ children }) => {
             flexGrow: 1,
             p: { xs: 1.5, sm: 2 },
             mt: 8,
+            mb: '45px', // Altura do footer
             width: {
               xs: '100%',
               sm: `calc(100% - ${sidebarOpen ? DRAWER_WIDTH : CLOSED_DRAWER_WIDTH}px)`,
@@ -54,22 +55,27 @@ const AppMain: React.FC<AppMainProps> = ({ children }) => {
             }),
             display: 'flex',
             flexDirection: 'column',
-            minHeight: `calc(100vh - ${theme.spacing(10)})`,
+            height: 'calc(100vh - 64px)', // Altura total menos a altura do header
             '& > *': {
+              marginLeft: '-60px',
               width: '100%',
-              minHeight: '100%',
-              '& .MuiCard-root': {
-                height: '100%',
-              },
+              height: '100%',
               '& .MuiPaper-root': {
                 height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              },
+              '& form': {
+                display: 'flex',
+                flexDirection: 'column',
+                flex: 1,
               }
             },
           }}
         >
           {children}
         </Box>
-        <Footer />
+        <Footer sidebarOpen={sidebarOpen} />
       </Box>
     </PageTitleProvider>
   );
