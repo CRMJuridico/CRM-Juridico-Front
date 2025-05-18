@@ -2,6 +2,7 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import ThemeRegistry from '@/providers/theme-provider';
 import AuthProvider from '@/providers/auth-provider';
+import { DateProvider } from '@/providers/date-provider';
 import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -19,7 +20,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <AuthProvider>
-          <ThemeRegistry>{children}</ThemeRegistry>
+          <ThemeRegistry>
+            <DateProvider>
+              {children}
+            </DateProvider>
+          </ThemeRegistry>
         </AuthProvider>
       </body>
     </html>
