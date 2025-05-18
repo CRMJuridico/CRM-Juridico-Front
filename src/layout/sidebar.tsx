@@ -31,10 +31,10 @@ const DRAWER_WIDTH = 200;
 const CLOSED_DRAWER_WIDTH = 65;
 
 const menuItems = [
-  { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-  { text: 'Clientes', icon: <PersonIcon />, path: '/clientes' },
-  { text: 'Processos', icon: <FolderIcon />, path: '/processos' },
   { text: 'Agenda', icon: <CalendarTodayIcon />, path: '/agenda' },
+  { text: 'Clientes', icon: <PersonIcon />, path: '/clientes' },
+  { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
+  { text: 'Processos', icon: <FolderIcon />, path: '/processos' },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
