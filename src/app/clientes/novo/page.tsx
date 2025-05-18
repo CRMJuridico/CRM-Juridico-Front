@@ -10,9 +10,10 @@ import {
   useTheme,
 } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { FormularioCliente, UploadArquivos } from '@/components/clientes/novo';
 import { Person, Upload } from '@mui/icons-material';
 import { usePageTitle } from '@/contexts/PageTitleContext';
+import ClienteForm from '@/views/clientes/forms/ClienteForm';
+import { UploadArquivos } from '@/components/clientes/novo';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -50,9 +51,9 @@ export default function NovoClientePage() {
     setTabValue(newValue);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // Aqui vai a lógica de salvar o cliente
+  const handleSubmit = (formData: any) => {
+    // TODO: Implementar a lógica de salvar o cliente
+    console.log('Dados do cliente:', formData);
     router.push('/clientes');
   };
 
@@ -93,7 +94,7 @@ export default function NovoClientePage() {
 
         <TabPanel value={tabValue} index={0}>
           <Box sx={{ p: 3 }}>
-            <FormularioCliente onSubmit={handleSubmit} />
+            <ClienteForm onSubmit={handleSubmit} />
           </Box>
         </TabPanel>
 
