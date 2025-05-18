@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, ChangeEvent } from 'react'
 import {
   Dialog,
   DialogTitle,
@@ -14,7 +14,8 @@ import {
   MenuItem,
   Grid,
   Stack,
-  Typography
+  Typography,
+  SelectChangeEvent
 } from '@mui/material'
 import { DateTimePicker } from '@mui/x-date-pickers'
 import { Compromisso, TipoCompromisso, PrioridadeCompromisso, StatusCompromisso } from '@/types/agenda'
@@ -64,7 +65,7 @@ export default function CompromissoForm({ open, onClose, onSave, compromisso }: 
             fullWidth
             label="Título"
             value={formData.titulo}
-            onChange={(e) => handleChange('titulo', e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('titulo', e.target.value)}
           />
 
           <TextField
@@ -73,7 +74,7 @@ export default function CompromissoForm({ open, onClose, onSave, compromisso }: 
             multiline
             rows={3}
             value={formData.descricao}
-            onChange={(e) => handleChange('descricao', e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('descricao', e.target.value)}
           />
 
           <Grid container spacing={2}>
@@ -83,7 +84,7 @@ export default function CompromissoForm({ open, onClose, onSave, compromisso }: 
                 <Select
                   value={formData.tipo}
                   label="Tipo"
-                  onChange={(e) => handleChange('tipo', e.target.value)}
+                  onChange={(e: SelectChangeEvent) => handleChange('tipo', e.target.value)}
                 >
                   {Object.values(TipoCompromisso).map((tipo) => (
                     <MenuItem key={tipo} value={tipo}>
@@ -100,7 +101,7 @@ export default function CompromissoForm({ open, onClose, onSave, compromisso }: 
                 <Select
                   value={formData.prioridade}
                   label="Prioridade"
-                  onChange={(e) => handleChange('prioridade', e.target.value)}
+                  onChange={(e: SelectChangeEvent) => handleChange('prioridade', e.target.value)}
                 >
                   {Object.values(PrioridadeCompromisso).map((prioridade) => (
                     <MenuItem key={prioridade} value={prioridade}>
@@ -142,7 +143,7 @@ export default function CompromissoForm({ open, onClose, onSave, compromisso }: 
                 fullWidth
                 label="Local"
                 value={formData.local}
-                onChange={(e) => handleChange('local', e.target.value)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('local', e.target.value)}
               />
             </Grid>
           </Grid>
