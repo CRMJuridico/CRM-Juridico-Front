@@ -5,7 +5,7 @@ import { Container, Grid, Button } from "@mui/material"
 import { Add as AddIcon } from '@mui/icons-material'
 import { usePageTitle } from '@/contexts/PageTitleContext'
 import Calendar from '@/components/agenda/Calendar'
-import CompromissoForm from '@/components/agenda/CompromissoForm'
+import CompromissoForm from '@/views/agenda/forms/CompromissoForm'
 import { Compromisso } from '@/types/agenda'
 
 export default function AgendaPage() {
