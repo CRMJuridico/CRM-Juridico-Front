@@ -10,7 +10,7 @@ interface PageTitleContextType {
 const PageTitleContext = createContext<PageTitleContextType | undefined>(undefined);
 
 export function PageTitleProvider({ children }: { children: ReactNode }) {
-  const [title, setTitle] = useState('Legal CRM');
+  const [title, setTitle] = useState('CRM Jurídico');
 
   return (
     <PageTitleContext.Provider value={{ title, setTitle }}>

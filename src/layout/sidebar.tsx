@@ -17,6 +17,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
 import FolderIcon from '@mui/icons-material/Folder';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import GroupIcon from '@mui/icons-material/Group';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useTheme } from '@/providers/theme-provider';
@@ -35,6 +36,7 @@ const menuItems = [
   { text: 'Clientes', icon: <PersonIcon />, path: '/clientes' },
   { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
   { text: 'Processos', icon: <FolderIcon />, path: '/processos' },
+  { text: 'Usuários', icon: <GroupIcon />, path: '/usuarios' },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {

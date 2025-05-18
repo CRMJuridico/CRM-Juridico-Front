@@ -4,6 +4,7 @@ import ThemeRegistry from '@/providers/theme-provider';
 import AuthProvider from '@/providers/auth-provider';
 import { DateProvider } from '@/providers/date-provider';
 import type { Metadata } from 'next';
+import { PageTitleProvider } from '@/contexts/PageTitleContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,7 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AuthProvider>
           <ThemeRegistry>
             <DateProvider>
-              {children}
+              <PageTitleProvider>
+                {children}
+              </PageTitleProvider>
             </DateProvider>
           </ThemeRegistry>
         </AuthProvider>
